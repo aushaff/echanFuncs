@@ -1,19 +1,32 @@
+#' @title lag1
+#' @description lags prices by 1
+#' @note needs to be modified to take a vector as well as a dataframe/matrix
+#'
+
 lag1 <- function(x) {
 
-  if (is.numeric(x)) {
+  if (is.numeric(x[1,1])) {
 
     # # populate the first entry with NaN
-    # y <- [NaN(1,size(x,2)); x[1:length(x)-1, )]
+    y1 <- rep(NA, ncol(x))
+    y2 <- x[1:nrow(x)-1, ]
+    y <- rbind(y1, y2)
 
-  } else if (is.character(x)) {
+    #y <- lapply(y, function(x) as.numeric(as.character(x)))
+
+  } else if (is.character(x[1,1])) {
 
     # # populate the first entry with ''
-    # y=[repmat('', [1 size(x,2)]); x(1:end-1, :)]
+    y1 <- rep("", ncol(x))
+    y2 <- x[1:nrow(x)-1, ]
+    y <- rbind(y1, y2)
+
   } else {
-      error('Can only be numeric or char array')
+      stop('Can only be numeric or char array')
   }
-returnt(y)
+return(y)
 }
+
 # if (isnumeric(x))
 #   y=[NaN(1,size(x,2));x(1:end-1, :)]; % populate the first entry with NaN
 # elseif (ischar(x))
